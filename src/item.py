@@ -54,6 +54,10 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls, filename):
+        """
+        Класс-метод открывает файл формата csv
+        и создает экземпляр класса
+        """
         Item.all.clear()
         with open(filename, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
@@ -66,4 +70,7 @@ class Item:
 
     @staticmethod
     def string_to_number(number: str):
+        """
+        Статический метод возвращающий число из числа строки
+        """
         return int(float(number))
