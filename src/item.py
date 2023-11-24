@@ -8,7 +8,6 @@ class Item:
     pay_rate = 1.0
     all = []
 
-
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
         Создание экземпляра класса item.
@@ -22,6 +21,11 @@ class Item:
         self.quantity = quantity
         Item.all.append(self)
 
+    def __add__(self, other):
+        """Сложение параметров экземпляров классов по количеству товара"""
+        if isinstance(other, self.__class__):
+            return self.quantity + other.quantity
+        raise ValueError("Можно складывать только с классом Phone")
 
     def calculate_total_price(self) -> float:
         """
@@ -31,7 +35,6 @@ class Item:
         """
         total_price = self.price * self.quantity
         return total_price
-
 
     def apply_discount(self) -> None:
         """
