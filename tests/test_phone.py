@@ -1,4 +1,5 @@
 from src.phone import Phone
+import pytest
 
 
 def test__repr__():
@@ -22,3 +23,8 @@ def test_setter():
     assert phone1.number_of_sim == 2
     phone1.number_of_sim = 3
     assert repr(phone1) == "Phone('Samsung', 40000, 100, 3)"
+
+
+def test_raise():
+    with pytest.raises(Exception):
+        phone1 = Phone("Samsung", 40000, 100, 0)
