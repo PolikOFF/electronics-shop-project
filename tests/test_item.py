@@ -1,6 +1,7 @@
 import csv
-
-from src.item import Item
+import os
+import pytest
+from src.item import Item, InstantiateCSVError
 
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 
@@ -41,3 +42,15 @@ def test__add__():
     item1 = Item("Веб-камера", 9000, 10)
     item2 = Item("Микрофон", 6000, 30)
     assert item1 + item2 == 40
+
+
+def test_filenotfounderror():
+    with pytest.raises(FileNotFoundError):
+        filename = 'tests.csv'
+        Item.instantiate_from_csv(filename)
+
+
+def test_damaged_file():
+    with pytest.raises(InstantiateCSVError):
+        filename = 'test.csv'
+        Item.instantiate_from_csv(filename)
