@@ -24,7 +24,7 @@ def test_name():
 
 
 def test_instantiate_from_csv():
-    Item.instantiate_from_csv('test.csv')
+    Item.instantiate_from_csv('test_len.csv')
     assert len(Item.all) == 5
 
 

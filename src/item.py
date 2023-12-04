@@ -1,4 +1,5 @@
 import csv
+import os
 
 
 class InstantiateCSVError(Exception):
@@ -65,19 +66,20 @@ class Item:
         Класс-метод открывает файл формата csv
         и создает экземпляр класса
         """
-        Item.all.clear()
-        try:
-            with open(filename, newline='') as csvfile:
-                reader = csv.DictReader(csvfile)
-                for row in reader:
-                    name = row['name']
-                    price = float(row['price'])
-                    quantity = int(row['quantity'])
-                    cls(name, price, quantity)
-        except FileNotFoundError:
-            raise FileNotFoundError('Отсутствует файл item.csv')
-        except (KeyError, ValueError):
-            raise InstantiateCSVError('Файл item.csv поврежден')
+        if os.path.exists(filename):
+            Item.all.clear()
+            try:
+                with open(filename, newline='') as csvfile:
+                    reader = csv.DictReader(csvfile)
+                    for row in reader:
+                        name = row['name']
+                        price = float(row['price'])
+                        quantity = int(row['quantity'])
+                        cls(name, price, quantity)
+            except (KeyError, ValueError):
+                raise InstantiateCSVError(f'Файл {filename} поврежден')
+        else:
+            raise FileNotFoundError(f'Отсутствует файл {filename}')
 
 
     @staticmethod
